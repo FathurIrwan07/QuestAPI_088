@@ -2,7 +2,6 @@ package com.dev.myapplication.model
 
 import kotlinx.serialization.Serializable
 
-
 @Serializable
 data class Mahasiswa (
     val nim: String,
