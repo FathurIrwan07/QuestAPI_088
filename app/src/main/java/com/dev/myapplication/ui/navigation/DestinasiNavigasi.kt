@@ -1,4 +1,4 @@
-package com.dev.myapplication.navigation
+package com.dev.myapplication.ui.navigation
 
 interface DestinasiNavigasi{
     val route: String

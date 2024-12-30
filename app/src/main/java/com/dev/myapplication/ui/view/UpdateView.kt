@@ -9,8 +9,8 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.dev.myapplication.customwidget.CoustumeTopAppBar
-import com.dev.myapplication.navigation.DestinasiNavigasi
+import com.dev.myapplication.ui.customwidget.CoustumeTopAppBar
+import com.dev.myapplication.ui.navigation.DestinasiNavigasi
 import com.dev.myapplication.ui.viewmodel.PenyediaViewModel
 import com.dev.myapplication.ui.viewmodel.UpdateViewModel
 import kotlinx.coroutines.Dispatchers

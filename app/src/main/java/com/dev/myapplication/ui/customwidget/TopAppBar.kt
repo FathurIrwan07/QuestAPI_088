@@ -1,4 +1,4 @@
-package com.dev.myapplication.customwidget
+package com.dev.myapplication.ui.customwidget
 
 import androidx.compose.foundation.clickable
 import androidx.compose.material.icons.Icons

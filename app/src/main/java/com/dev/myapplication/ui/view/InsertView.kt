@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Divider
@@ -19,20 +18,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.dev.myapplication.navigation.DestinasiNavigasi
-import com.dev.myapplication.customwidget.CostumeTopAppBar
+import com.dev.myapplication.ui.customwidget.CoustumeTopAppBar
+import com.dev.myapplication.ui.navigation.DestinasiNavigasi
 import com.dev.myapplication.ui.viewmodel.InsertUiEvent
 import com.dev.myapplication.ui.viewmodel.InsertUiState
 import com.dev.myapplication.ui.viewmodel.InsertViewModel
 import com.dev.myapplication.ui.viewmodel.PenyediaViewModel
 import kotlinx.coroutines.launch
 
-object DestinasiEntry: DestinasiNavigasi {
+object DestinasiEntry : DestinasiNavigasi {
     override val route = "item_entry"
-    override val titleRes = "Insert Mahasiswa"
+    override val titleRes = "Entry Mhs"
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -41,20 +39,21 @@ fun EntryMhsScreen(
     navigateBack: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: InsertViewModel = viewModel(factory = PenyediaViewModel.Factory)
-){
+) {
     val coroutineScope = rememberCoroutineScope()
-    val scrollBehaviour = TopAppBarDefaults.enterAlwaysScrollBehavior()
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+
     Scaffold(
-        modifier = modifier.nestedScroll(scrollBehaviour.nestedScrollConnection),
+        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
-            CostumeTopAppBar(
+            CoustumeTopAppBar(
                 title = DestinasiEntry.titleRes,
                 canNavigateBack = true,
-                scrollBehavior = scrollBehaviour,
+                scrollBehavior = scrollBehavior,
                 navigateUp = navigateBack
             )
         }
-    ) { innerPadding ->
+    ){innerPadding ->
         EntryBody(
             insertUiState = viewModel.uiState,
             onSiswaValueChange = viewModel::updateInsertMhsState,
@@ -62,7 +61,8 @@ fun EntryMhsScreen(
                 coroutineScope.launch {
                     viewModel.insertMhs()
                     navigateBack()
-                }},
+                }
+            },
             modifier = Modifier
                 .padding(innerPadding)
                 .verticalScroll(rememberScrollState())
@@ -81,7 +81,7 @@ fun EntryBody(
     Column(
         verticalArrangement = Arrangement.spacedBy(18.dp),
         modifier = modifier.padding(12.dp)
-    ) {
+    ){
         FormInput(
             insertUiEvent = insertUiState.insertUiEvent,
             onValueChange = onSiswaValueChange,
@@ -97,18 +97,18 @@ fun EntryBody(
     }
 }
 
-
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FormInput(
     insertUiEvent: InsertUiEvent,
+    onValueChange: (InsertUiEvent) -> Unit,
     modifier: Modifier = Modifier,
-    onValueChange: (InsertUiEvent) -> Unit = {},
     enabled: Boolean = true
 ){
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(12.dp)
-    ) {
+    ){
         OutlinedTextField(
             value = insertUiEvent.nama,
             onValueChange = { onValueChange(insertUiEvent.copy(nama = it)) },
@@ -120,7 +120,7 @@ fun FormInput(
         OutlinedTextField(
             value = insertUiEvent.nim,
             onValueChange = { onValueChange(insertUiEvent.copy(nim = it)) },
-            label = { Text(text = "NIM") },
+            label = { Text("NIM") },
             modifier = Modifier.fillMaxWidth(),
             enabled = enabled,
             singleLine = true
@@ -128,7 +128,7 @@ fun FormInput(
         OutlinedTextField(
             value = insertUiEvent.jenisKelamin,
             onValueChange = { onValueChange(insertUiEvent.copy(jenisKelamin = it)) },
-            label = { Text(text = "Jenis Kelamin") },
+            label = { Text("Jenis Kelamin") },
             modifier = Modifier.fillMaxWidth(),
             enabled = enabled,
             singleLine = true
@@ -136,7 +136,7 @@ fun FormInput(
         OutlinedTextField(
             value = insertUiEvent.alamat,
             onValueChange = { onValueChange(insertUiEvent.copy(alamat = it)) },
-            label = { Text(text = "Alamat") },
+            label = { Text("Alamat") },
             modifier = Modifier.fillMaxWidth(),
             enabled = enabled,
             singleLine = true
@@ -144,7 +144,7 @@ fun FormInput(
         OutlinedTextField(
             value = insertUiEvent.kelas,
             onValueChange = { onValueChange(insertUiEvent.copy(kelas = it)) },
-            label = { Text(text = "Kelas") },
+            label = { Text("Kelas") },
             modifier = Modifier.fillMaxWidth(),
             enabled = enabled,
             singleLine = true
@@ -152,15 +152,14 @@ fun FormInput(
         OutlinedTextField(
             value = insertUiEvent.angkatan,
             onValueChange = { onValueChange(insertUiEvent.copy(angkatan = it)) },
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-            label = { Text(text = "Angkatan") },
+            label = { Text("Angkatan") },
             modifier = Modifier.fillMaxWidth(),
             enabled = enabled,
             singleLine = true
         )
-        if (enabled){
+        if(enabled) {
             Text(
-                text = "Isi Semua Data",
+                text = "Isi Semua Data!",
                 modifier = Modifier.padding(12.dp)
             )
         }

@@ -26,8 +26,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.dev.myapplication.model.Mahasiswa
-import com.dev.myapplication.customwidget.CoustumeTopAppBar
-import com.dev.myapplication.navigation.DestinasiNavigasi
+import com.dev.myapplication.ui.customwidget.CoustumeTopAppBar
+import com.dev.myapplication.ui.navigation.DestinasiNavigasi
 import com.dev.myapplication.ui.viewmodel.DetailUiState
 import com.dev.myapplication.ui.viewmodel.DetailViewModel
 import com.dev.myapplication.ui.viewmodel.PenyediaViewModel

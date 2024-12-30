@@ -9,7 +9,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import com.dev.myapplication.navigation.PengelolaHalaman
+import com.dev.myapplication.ui.navigation.PengelolaHalaman
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
