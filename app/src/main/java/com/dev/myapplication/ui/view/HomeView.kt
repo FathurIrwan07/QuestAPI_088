@@ -152,3 +152,85 @@ fun OnError(retryAction: () -> Unit, modifier: Modifier = Modifier){
     }
 }
 
+
+@Composable
+fun MhsLayout(
+    mahasiswa: List<Mahasiswa>,
+    modifier: Modifier = Modifier,
+    onDetailClick: (Mahasiswa) -> Unit,
+    onDeleteClick: (Mahasiswa) -> Unit = {}
+){
+    LazyColumn(
+        modifier = modifier,
+        contentPadding = PaddingValues(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        items(mahasiswa){kontak->
+            MhsCard(
+                mahasiswa = kontak,
+                modifier = Modifier.fillMaxWidth()
+                    .clickable{ onDetailClick(kontak) },
+                onDeleteClick ={
+                    onDeleteClick(kontak)
+                }
+            )
+        }
+    }
+}
+
+@Composable
+fun MhsCard(
+    mahasiswa: Mahasiswa,
+    modifier: Modifier = Modifier,
+    onDeleteClick: (Mahasiswa) -> Unit = {}
+){
+    var deleteConfirmationRequared by rememberSaveable { mutableStateOf(false) }
+    Card (
+        modifier = modifier,
+        shape = MaterialTheme.shapes.small,
+        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
+    ){
+        Column(
+            modifier = Modifier.padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ){
+                Text(
+                    text = mahasiswa.nama,
+                    style = MaterialTheme.typography.titleLarge
+                )
+                Spacer(Modifier.weight(1f))
+                IconButton(onClick = { deleteConfirmationRequared = true }) {
+                    Icon(
+                        imageVector = Icons.Default.Delete,
+                        contentDescription = null
+                    )
+                }
+                if(deleteConfirmationRequared){
+                    DeleteConfirmationDialog(
+                        onDeleteConfirm = {
+                            onDeleteClick(mahasiswa)
+                            deleteConfirmationRequared = false
+                        },
+                        onDeleteCancel = { deleteConfirmationRequared = false }
+                    )
+                }
+            }
+            Text(
+                text = mahasiswa.nim,
+                style = MaterialTheme.typography.titleLarge
+            )
+            Text(
+                text = mahasiswa.kelas,
+                style = MaterialTheme.typography.titleLarge
+            )
+            Text(
+                text = mahasiswa.alamat,
+                style = MaterialTheme.typography.titleLarge
+            )
+        }
+    }
+}
